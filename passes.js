@@ -60,8 +60,8 @@ const getTopPlayer = passes => {
 
   const playerPasses = Object.entries(transformArray(passes));
   for (const passes of playerPasses) {
-    let totalWins = passes[SCORES].reduce((a, b) => a + b, 0);
-    let percentage = totalWins / passes[SCORES].length;
+    let successfulPasses = passes[SCORES].reduce((a, b) => a + b, 0);
+    let percentage = successfulPasses / passes[SCORES].length;
     if (percentage > currentTop.value) {
       currentTop.player = passes[NAME];
       currentTop.value = percentage;
@@ -74,12 +74,12 @@ const getTopPlayer = passes => {
 // after finding it, get the value of the array corresponding to it
 const getMaxDistance = passes => {
   let max = passes.reduce(
-    (min, p) =>
-      p.result === 'complete' && p.distance > min ? p.distance : min,
+    (max, p) =>
+      p.result === 'complete' && p.distance > max ? p.distance : max,
     0
   );
   return passes.find(
-    element => element.distance === max && element.result === 'complete'
+    pass => pass.distance === max && pass.result === 'complete'
   );
 };
 
